@@ -1,7 +1,7 @@
 # BigPanda DevOps Exercise
 #### INTRO
 Good morning, Mr. Panda. Your mission, should you choose to accept it, involves the development and deployment of two nanoservices.
-Please read the following instructions before starting to implement your mission, you don't want to miss any important instruction, especially those in [General Guidelines](#general-guidelines)
+Please read the following instructions **carefully** before starting to implement your mission, you don't want to miss any important instruction, especially those in [General Guidelines](#general-guidelines)
 
 #### Get your environment ready
 You'll need a linux machine with the ability to run vms.
@@ -15,7 +15,7 @@ You'll need a linux machine with the ability to run vms.
 1. Inside the vm execute `nodejs /tmp/bamboo-app/bamboo.js`.
 1. Open your browser, go to <http://localhost:8080>, you should get some information about how much we love bamboo.
 
-Important note: the infrastracture should work out of the box. There's no hidden part of the excersice in which you need to debug vagrant/virtualbox.
+Important note: the infrastracture should work out of the box. There's no hidden part of the excersice in which you need to debug vagrant/virtualbox. If you expirience any issue, please refer to [Problems](#problems)
 
 #### Ready for action?
 Great.  
@@ -58,3 +58,16 @@ Think about operational use cases from the real world. Few examples:
 1. Can you run the playbook multiple times without any problem?
 1. What happens if a service crashes?
 1. How much effort will it take to create a new service? D.R.Y!
+
+
+#### Problems
+The one and only reason we're using VirtualBox and Vagrant is simplicity and fast bring up of your environment.  
+However, environment issues might happen due to various reasons we can't control.  
+If, for any reason, you experience issues with Vagrant or VirtualBox which you can't solve in 5 minute of work, please do the following:
+1. Avoid any VirtualBox or Vagrant work.
+1. Create a new Ubuntu VM on your own.
+1. Write the two services detailed in [NodeJS/Python Services](#nodejspython-services)
+1. Write the roles detailed in [Deployment](#deployment)
+1. In the [Deliverables](#Deliverables) part, assume `base.yml` will run locally on the VM, and modify it accordingly.
+
+Bottom line - follow all the instruction in this document, but assume you're provisioning `localhost` machine.
