@@ -1,0 +1,35 @@
+---
+
+- name: SMARTPANDA | install required pacakges
+  become: yes
+  apt: pkg={{item}} state=installed
+  with_items:
+    - python-pip
+    - supervisor
+   # - nginx
+
+- name: SMARTPANDA | install pip-tools
+  pip: name=pip-tools
+
+- name: SMARTPANDA | copy app source files
+  copy: src=smart_panda dest=/tmp/ owner=root group=root mode=0755
+  register: app_copied
+
+- name: SMARTPANDA | install app dependencies
+  pip:
+    requirements: /tmp/smart_panda/requirements.in
+
+- name: SMARTPANDA | create supervisor configuration for smart_panda
+  copy:
+    src: supervisord/smart_panda.conf
+    dest: /etc/supervisor/conf.d/smart_panda.conf
+    owner: root
+    group: root
+    mode: 0755
+  register: app_config
+  notify: restart supervisor 
+
+- name: SMARTPANDA | Ensure Supervisor is started
+  shell: "pgrep supervisord || supervisord"
+  notify:
+    - reload supervisor

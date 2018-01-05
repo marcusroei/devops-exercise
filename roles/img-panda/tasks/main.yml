@@ -1,0 +1,35 @@
+---
+
+- name: IMGPANDA | install required pacakges
+  become: yes
+  apt: pkg={{item}} state=installed
+  with_items:
+    - python-pip
+    - supervisor
+   # - nginx
+
+- name: IMGPANDA | install pip-tools
+  pip: name=pip-tools
+
+- name: IMGPANDA | copy app source files
+  copy: src=imgpanda_app dest=/tmp/ owner=root group=root mode=0755
+  register: app_copied
+
+- name: IMGPANDA | install app dependencies
+  pip:
+    requirements: /tmp/imgpanda_app/requirements.in
+
+- name: IMGPANDA | create supervisor configuration for imgpanda_app
+  copy:
+    src: supervisord/imgpanda_app.conf
+    dest: /etc/supervisor/conf.d/imgpanda_app.conf
+    owner: root
+    group: root
+    mode: 0755
+  register: app_config
+  notify: restart supervisor 
+
+- name: IMGPANDA | Ensure Supervisor is started
+  shell: "pgrep supervisord || supervisord"
+  notify:
+    - reload supervisor
