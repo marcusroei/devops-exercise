@@ -1,0 +1,12 @@
+---
+
+- name: reload supervisor
+  shell: "supervisorctl reload"
+
+- name: restart supervisor
+  supervisorctl:
+    name: img_pandaapp
+    state: restarted
+
+- name: restart nginx
+  service: name=nginx state=restarted
