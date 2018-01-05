@@ -5,7 +5,7 @@
 
 - name: restart supervisor
   supervisorctl:
-    name: imgpanda
+    name: img_pandaapp
     state: restarted
 
 - name: restart nginx

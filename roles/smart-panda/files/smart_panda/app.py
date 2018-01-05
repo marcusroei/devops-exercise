@@ -2,11 +2,16 @@
 from flask import Flask, request, send_from_directory
 from random import randint
 import json
+import os
 # set the project root directory as the static folder, you can set others
 smart_app = Flask(__name__, static_url_path='')
 
+dir = os.path.dirname(__file__)
+filename = os.path.join(dir, 'config.json')
+
+
 post_request_counter = 0
-with open('config.json') as json_data_file:
+with open(filename) as json_data_file:
     data = json.load(json_data_file)
 port = data.get("port")
 
